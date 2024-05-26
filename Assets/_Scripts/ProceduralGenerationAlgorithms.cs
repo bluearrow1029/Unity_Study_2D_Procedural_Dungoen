@@ -89,7 +89,8 @@ public static class ProceduralGenerationAlgorithms
     {
         var xSplit = Random.Range(1, room.size.x);
         BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(xSplit, room.min.y, room.min.z));
-        BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x + xSplit, room.min.y, room.min.z), new Vector3Int(room.size.x - xSplit, room.size.y, room.size.z));
+        BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x + xSplit, room.min.y, room.min.z),
+            new Vector3Int(room.size.x - xSplit, room.size.y, room.size.z));
 
         roomsQueue.Enqueue(room1);
         roomsQueue.Enqueue(room2);
@@ -99,7 +100,8 @@ public static class ProceduralGenerationAlgorithms
     {
         var ySplit = Random.Range(1, room.size.y);  // (minHeight, room.size.y - minHeight)
         BoundsInt room1 = new BoundsInt(room.min, new Vector3Int(room.size.x, ySplit, room.size.z));
-        BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x, room.min.y + ySplit, room.min.z), new Vector3Int(room.size.x, room.size.y - ySplit, room.size.z));
+        BoundsInt room2 = new BoundsInt(new Vector3Int(room.min.x, room.min.y + ySplit, room.min.z),
+            new Vector3Int(room.size.x, room.size.y - ySplit, room.size.z));
 
         roomsQueue.Enqueue(room1);
         roomsQueue.Enqueue(room2);
