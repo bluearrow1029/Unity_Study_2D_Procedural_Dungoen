@@ -5,6 +5,14 @@
 학습 자료: https://youtube.com/playlist?list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&si=dnMCw1ZA2V7zUodQ
 
 #
+### WallTypesHelper.cs
+![WallTypes](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/2683a4f6-f213-4825-bbda-4ddbfc0e17da)
+
+WallTypesHelper에 입력된 바이너리 데이터 분류들 중 일부.
+
+입력받는 바이너리 데이터를 비교하여, 타일의 종류를 구분하기 위해 이용됨.
+
+#
 ### TilemapVisualizer.cs
 ![PaintSingleTile](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/2ffba9f4-a7a1-4dc7-b99f-bcd1008f6920)
 
@@ -17,6 +25,22 @@ PaintSingleTile 메소드에서 tilemap의 SetTile 메소드를 이용함.
 매개변수로 받은 position을 월드 기준의 좌표 tilePosition으로 설정함.
 
 특정 tilemap에서 지정한 tile을 월드 기준 좌표인 tilePosition 좌표에 배치함.
+
+![PaintSingleBasicWall](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/ed8cef0f-fdb4-4874-bbe7-c5d81745d10c)
+
+기본 벽(상하좌우 4방향 벽)을 시각화 하기 위한 메소드
+
+매개변수로 받은 바이너리 데이터가 포함되어있는 곳에 따라서 타일의 종류가 설정됨.
+
+이후, 타일이 null이 아니면 설정된 종류의 타일을 배치함.
+
+![PaintSingleCornerWall](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/d4144a0b-ceef-47a7-b457-af32ae184bf8)
+
+모서리 벽을 시각화 하기 위한 메소드
+
+매개변수로 받은 바이너리 데이터가 포함되어있는 곳에 따라서 타일의 종류가 설정됨.
+
+이후, 타일이 null이 아니면 설정된 종류의 타일을 배치함.
 
 #
 ### AbstractDungeonGenerator.cs
@@ -86,10 +110,48 @@ BSP(Binary Space Partitioning, 이진 공간 분할법) 알고리즘
 ![Split](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/06f0d34e-b251-4389-9693-635ddf1198aa)
 
 수직 분할
+
 수평 분할
 
 #
 ### WallGenerator.cs
+![CreateWalls](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/c8ebf573-79a8-4d49-8307-7a25800b6b2d)
+
+FindWallsInDirections 메소드를 통하여 상하좌우 벽 타일들의 좌표들과 대각선 벽 타일들의 좌표들을 구함.
+
+CreateBasicWall로 상하좌우 벽들을 시각화함.
+
+CreateCornerWalls로 대각선 벽들을 시각화함.
+
+![FindWalls](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/a290f22c-2124-4fb0-a8e5-80d4bf75a5db)
+
+HashSet으로 중복없는 벽 좌표값들(wallPositions)을 구함.
+
+모든 바닥 좌표에서 상하좌우 벡터 이동한 좌표(neighbourPosition, 이웃 좌표)를 구하고, 그 좌표가 바닥 좌표인지 아닌지 확인함.
+
+바닥 좌표가 아니라면, 벽 좌표에 추가함.
+
+![CreateBasicWall](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/a7822ebb-b89f-43c8-9081-0b80f06b6ba6)
+
+상하좌우 중 어느 방향의 벽인지 판별하고, 시각화하기 위한 메소드.
+
+벽 좌표들의 상하좌우 인접한 좌표들이 바닥 좌표인지 확인.
+
+바닥좌표라면, 바이너리 데이터에 1 추가.
+
+아니라면, 바이너리 데이터에 0 추가.
+
+바이너리 데이터를 기반으로 시각화함.
+
+![CreateCornerWalls](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/c339d060-6e20-4ccb-99a2-e7afb116f838)
+
+모서리 벽의 방향을 판별하고, 시각화하기 위한 메소드.
+
+모서리 벽 좌표들을 중심으로 인접한 8방향 좌표들이 바닥 좌표인지 확인.
+
+바닥좌표라면, 바이너리 데이터에 1 추가.
+
+아니라면, 바이너리 데이터에 0 추가.
 
 #
 ### SimpleRandomWalkDungeonGenerator.cs
