@@ -1,15 +1,16 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
 public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
 {
+
     [SerializeField]
     protected SimpleRandomWalkSO randomWalkParameters;
+
 
     protected override void RunProceduralGeneration()
     {
@@ -23,17 +24,14 @@ public class SimpleRandomWalkDungeonGenerator : AbstractDungeonGenerator
     {
         var currentPosition = position;
         HashSet<Vector2Int> floorPositions = new HashSet<Vector2Int>();
-
-        for(int index = 0; index < parameters.iterations; index++)
+        for (int i = 0; i < parameters.iterations; i++)
         {
             var path = ProceduralGenerationAlgorithms.SimpleRandomWalk(currentPosition, parameters.walkLength);
             floorPositions.UnionWith(path);
-
             if (parameters.startRandomlyEachIteration)
-            {
                 currentPosition = floorPositions.ElementAt(Random.Range(0, floorPositions.Count));
-            }
         }
         return floorPositions;
     }
+
 }
