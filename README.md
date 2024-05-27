@@ -14,7 +14,8 @@ UnityEngine.Tilemaps가 이용됨.
 
 PaintSingleTile 메소드에서 tilemap의 SetTile 메소드를 이용함.
 
-매개변수로 받은 position을 월드 기준의 좌표 tilePosition으로 설정함. 
+매개변수로 받은 position을 월드 기준의 좌표 tilePosition으로 설정함.
+
 특정 tilemap에서 지정한 tile을 월드 기준 좌표인 tilePosition 좌표에 배치함.
 
 
@@ -23,8 +24,11 @@ PaintSingleTile 메소드에서 tilemap의 SetTile 메소드를 이용함.
 ![Abstract](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/908ee389-01e7-47c1-b0e5-c347c681c482)
 
 해당 학습자료에서는 3종류의 DungeonGenerator를 만들고 확인하므로, 이를 위해 DungeonGenerator를 추상화함.
+
 좌표들을 시각화하기 위한 tilemapVisualizer를 null로 초기화함.
+
 던전 생성의 시작점을 (0,0)으로 초기화함.
+
 GenerateDungeon에서 tilemap을 초기화하고, 각 DungeonGenerator의 절차적 생성을 진행하는 형태를 잡음.
 
 
@@ -33,18 +37,28 @@ GenerateDungeon에서 tilemap을 초기화하고, 각 DungeonGenerator의 절차
 ![Direction2D](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/2f922656-1275-4b00-9260-fab0d8699753)
 
 Direction2D 클래스를 선언하여, 상하좌우와 대각선 방향들을 향할 Vector2Int 값들을 리스트에 저장함.
-GetRandomCardinalDirection 메소드는 지정해둔 상하좌우 4방향의 리스트 중 랜덤으로 1개의 Vector2Int 값을 반환함. 이것은 Random Walk 알고리즘에 이용됨.
+
+GetRandomCardinalDirection 메소드는 지정해둔 상하좌우 4방향의 리스트 중 랜덤으로 1개의 Vector2Int 값을 반환함.
+
+이것은 Random Walk 알고리즘에 이용됨.
 
 
 
 ![SimpleRandomWalk_Algorithm](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/b69d90c7-e967-487c-b1d8-0de037175798)
 
 Simple Random Walk 알고리즘
+
 HashSet을 이용하여 중복없이 Vector2Int 형식의 경로 값들 path에 저장함.
+
 이전 좌표를 기준으로 GetRandomCardinalDirection을 통해 얻은 Vector2Int 값을 더한 좌표를 얻음.
+
 그것을 path에 추가하고, 새 좌표를 시작점으로 설정함.
+
 매개변수를 통해 얻은 walkLength 횟수만큼 이를 반복함.
+
 반복이 끝난 이후 모든 좌표값들이 들어있는 path를 반환함.
+
+
 
 ![RandomWalkCorridor_Algorithm](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/35769814-8f08-46d6-b889-7260a77199ef)
 
