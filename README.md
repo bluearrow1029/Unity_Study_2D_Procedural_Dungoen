@@ -9,9 +9,12 @@
 ![PaintSingleTile](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/2ffba9f4-a7a1-4dc7-b99f-bcd1008f6920)
 
 ProceduralGenerationAlgorithm을 통해 좌표값들은 TilemapVisualizer에 의해 시각화 됨.
+
 UnityEngine.Tilemaps가 이용됨.
+
 PaintSingleTile 메소드에서 tilemap의 SetTile 메소드를 이용함.
-매개변수로 받은 position을 월드 기준의 좌표 tilePosition으로 설정함.
+
+매개변수로 받은 position을 월드 기준의 좌표 tilePosition으로 설정함. 
 특정 tilemap에서 지정한 tile을 월드 기준 좌표인 tilePosition 좌표에 배치함.
 
 
