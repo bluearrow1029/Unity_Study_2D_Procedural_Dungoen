@@ -5,6 +5,8 @@
 학습 자료: https://youtube.com/playlist?list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&si=dnMCw1ZA2V7zUodQ
 
 #
+### 결과물
+
 ### 1. Simple Random Walk
 ![SimpleRandomWalk](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/96935aeb-bef1-43c7-8ea3-b8eb70f0b303)
 
@@ -29,6 +31,12 @@ BSP 알고리즘을 이용하여 생성된 다수의 방과 통로.
 WallTypesHelper에 입력된 바이너리 데이터 분류들 중 일부.
 
 입력받는 바이너리 데이터를 비교하여, 타일의 종류를 구분하기 위해 이용됨.
+
+![image](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/a17b4c1b-7361-4f39-9389-3abd7624c682)
+
+바이너리 데이터는 12시 타일부터 시계방향 순서로 입력됨.
+
+바닥 타일이면 1이 입력되고, 바닥 타일이 아니면 0이 입력됨.
 
 #
 ### TilemapVisualizer.cs
@@ -118,18 +126,39 @@ HashSet을 이용하여 중복없이 Vector2Int 형식의 경로 값들 path에 
 
 ![RandomWalkCorridor_Algorithm](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/35769814-8f08-46d6-b889-7260a77199ef)
 
-Random Walk 알고리즘을 이용하여, 
+방들을 잇기 위한 복도 생성 알고리즘.
+
+현재 좌표를 복도 좌표(corridor)에 추가함.
+
+상하좌우 4방향 중 랜덤 1방향으로 방향(direction)을 지정함.
+
+매개변수로 받은 corridorLength만큼 지정된 방향(direction)으로 좌표를 한칸씩 이동.
+
+그 과정 중, 현재 좌표들을 복도 좌표(corridor)에 추가.
+
+복도 좌표(corridor)를 반환함.
 
 ![BSP_Algorithm](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/3d3e8b93-b2a8-428e-b040-4e57bd6527b2)
 
-BSP(Binary Space Partitioning, 이진 공간 분할법) 알고리즘
+BSP(Binary Space Partitioning, 이진 공간 분할법) 알고리즘.
 
+던전 전체의 BoundsInt를 roomsQueue에 추가함.
+
+방 크기 최소 설정값보다 크고, 작음과 랜덤값과의 크고 작음으로 분기를 나눔.
+
+조건에 맞춰서 수직 분할이나 수평 분할을 수행하거나, 더이상 나눌 수 없다면 roomsList에 추가함.
+
+이를 roomsQueue가 0이 될 때까지 반복함.
 
 ![Split](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/06f0d34e-b251-4389-9693-635ddf1198aa)
 
-수직 분할
+수직 분할(SplitVertically)
 
-수평 분할
+xSplit 값을 지정하여 기존 BoundsInt를 수직으로 나눠서 2개의 방의 BoundsInt를 roomsQueue에 추가함.
+
+수평 분할(SplitHorizontally)
+
+ySplit 값을 지정하여 기존 BoundsInt를 수평으로 나눠서 2개의 방의 BoundsInt를 roomsQueue에 추가함.
 
 #
 ### WallGenerator.cs
@@ -187,14 +216,112 @@ HashSet으로 중복없는 벽 좌표값들(wallPositions)을 구함.
 
 CreateWalls를 수행하여 벽 타일들도 시각화함.
 
-
-
 #
 ### CorridorFirstDungeonGenerator.cs
+![CorridorFirstGeneration](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/7fa13b95-4be0-4e8d-bc71-972b32a9aa0e)
 
+CreateCorridors 메소드로 얻은 복도 좌표를 바닥 좌표(floorPositions)에 추가.
 
+CreateRooms 메소드로 얻은 좌표들을 방 좌표(roomPositions)로 설정.
+
+막다른 길의 좌표들을 구하고, 그 좌표로 CreateRoomsAtDeadEnd 메소드를 실행.
+
+메소드에 의해, 막다른 길에서 생성한 방들의 좌표가 roomPosition에 추가됨.
+
+바닥 좌표(floorPositions)에 추가하고, 이를 기준으로 바닥과 벽 타일들을 시각화함.
+
+![CreateRoomsAtDeadEnd](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/b673f8e9-8205-49c9-b655-161a81b1fb75)
+
+막다른 길(DeadEnd)에 방을 생성하는 메소드
+
+모든 막다른 길 좌표 중, 방 좌표에 추가된 곳이 아니면 Random Walk 실행.
+
+얻은 좌표들을 방 좌표(roomFloors)에 추가.
+
+![FindAllDeadEnds](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/55302665-ca43-431e-b55d-6a8362da73b9)
+
+모든 막다른 길(DeadEnd)을 탐색하는 메소드
+
+모든 바닥좌표에서 상하좌우 4방향으로 이어지는 인접한 바닥좌표이 있을때마다 카운트(neighbourCount) 1 증가
+
+카운트(neighbourCount)가 1인 경우, 막다른 길 좌표(deadEnds)에 추가.
+
+모든 탐색이 끝난 이후, 막다른 길 좌표(deadEnds) 반환.
+
+![CreateRooms](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/423d507a-b827-43cd-9cf8-969a0b91850d)
+
+potentialRoomPositions 좌표의 개수에 roomPercent 배율 곱한 값을 반올림한만큼 방 생성 횟수를 정함.
+
+생성할 방의 좌표들을 Guid.NewGuid() 기준으로 내림차순으로 정렬함.
+
+방 좌표마다 Random Walk를 실행하고, 방 좌표(roomPositions)에 추가함.
+
+방 좌표들을 반환함.
+
+![CreateCorridors](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/78467708-efd6-4e32-9e6c-32308912869e)
+
+Random Walk Corridor로 반환된 복도 좌표들을 구함.
+
+복도 좌표 중 마지막 좌표를 현재 좌표로 potentialRoomPositions에 추가함.
+
+그 후, 복도 좌표를 바닥 좌표(floorPositions)에 추가함.
+
+이를 CorridorCount만큼 반복함.
 
 #
 ### RoomFirstDungeonGenerator.cs
+![CreateRoomss](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/33ab2a86-7eb1-4c8f-a809-51ea83caf650)
 
+BSP 알고리즘을 이용한 방 생성 메소드.
 
+방 랜덤 생성(randomWalkRooms)의 체크 여부에 따라서 CreateSimpleRooms나 CreateRoomsRandomly를 실행함.
+
+모든 방 좌표에서 방의 중심 좌표를 구하고 roomCenters에 추가함.
+
+방 중심 좌표인 roomCenters로 ConnectRooms 메소드를 실행하고, 복도 좌표를 구하여 바닥 좌표에 추가함.
+
+바닥 좌표들과 벽 좌표들을 시각화함.
+
+![CreateRoomRandomly](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/973a87a9-9208-4ec0-8b46-0c5262a5fb32)
+
+x 좌표와 y 좌표를 반올림하여 방 중심 좌표를 구함.
+
+방 중심에서 Random Walk를 실행하여 방 좌표들을 구함.
+
+모든 방 좌표들 중, 방 크기의 최소값과 오프셋 설정에 부합한 좌표들을 바닥 좌표에 추가함.
+
+모든 바닥 좌표들을 반환함.
+
+![ConnectRooms](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/e7cea373-1c4e-4f08-b751-4773fc8c369c)
+
+모든 방 중심점 중, 랜덤 하나를 기준으로 시작함.
+
+FindClosestPointTo 메소드로 가장 가까운 중심점을 구함.
+
+CreateCorridor 메소드로 두 중심점을 잇는 바닥 좌표들을 구하고, 복도 좌표에 추가함.
+
+모든 복도 좌표들을 반환함.
+
+![CreateCorridor](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/b101e83f-cf27-4e43-8980-cb7148c6d8fa)
+
+현재 방 중심의 y 좌표와 목적지인 중심의 y 좌표가 다르면, (0,1)이나 (0,-1)을 더해주고 그 좌표를 복도 좌표에 추가함.
+
+이를, 두 중심의 y 좌표가 같아질 때까지 반복함.
+
+현재 방 중심의 x 좌표와 목적지인 중심의 x 좌표가 다르면, (1,0)이나 (-1,0)을 더해주고 그 좌표를 복도 좌표에 추가함.
+
+이를, 두 중심의 x 좌표가 같아질 때까지 반복함.
+
+모든 복도 좌표들을 반환함.
+
+![FindClosestPointTo](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/fd7b4219-5d2f-498c-893b-52bb4de9d2b3)
+
+현재 방 중심점과 모든 방의 중심점의 거리를 비교하여 가장 가까운 중심의 좌표를 closest에 대입.
+
+closest를 반환함.
+
+![CreateSimpleRooms](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/4d001e8f-8a86-42aa-a463-08f5d5fcb464)
+
+모든 방 좌표에서 설정한 오프셋과 방의 크기만큼 바닥 좌표를 새롭게 구함.
+
+바닥 좌표들을 반환함.
