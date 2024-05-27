@@ -9,7 +9,9 @@ public class TilemapVisualizer : MonoBehaviour
     [SerializeField]
     private Tilemap floorTilemap, wallTilemap;
     [SerializeField]
-    private TileBase floorTile, wallTop, wallSideRight, wallSideLeft, wallBottom, wallFull;
+    private TileBase floorTile, wallTop, wallSideLeft, wallSideRight, wallBottom, wallFull,
+        wallInnerCornerDownLeft, wallInnerCornerDownRight,
+        wallDiagonalCornerDownLeft, wallDiagonalCornerDownRight, wallDiagonalCornerUpLeft, wallDiagonalCornerUpRight;
 
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
@@ -68,8 +70,47 @@ public class TilemapVisualizer : MonoBehaviour
         wallTilemap.ClearAllTiles();
     }
 
-    internal void PaintSingleCornerWall(Vector2Int position, string neighboursBinaryType)
+    internal void PaintSingleCornerWall(Vector2Int position, string binaryType)
     {
+        int typeASInt = Convert.ToInt32(binaryType, 2);
+        TileBase tile = null;
 
+        if(WallTypesHelper.wallInnerCornerDownLeft.Contains(typeASInt))
+        {
+            tile = wallInnerCornerDownLeft;
+        }
+        else if(WallTypesHelper.wallInnerCornerDownRight.Contains(typeASInt))
+        {
+            tile = wallInnerCornerDownRight;
+        }
+        else if(WallTypesHelper.wallDiagonalCornerDownLeft.Contains(typeASInt))
+        {
+            tile = wallDiagonalCornerDownLeft;
+        }
+        else if(WallTypesHelper.wallDiagonalCornerDownRight.Contains(typeASInt))
+        {
+            tile = wallDiagonalCornerDownRight;
+        }
+        else if(WallTypesHelper.wallDiagonalCornerUpLeft.Contains(typeASInt))
+        {
+            tile = wallDiagonalCornerUpLeft;
+        }
+        else if(WallTypesHelper.wallDiagonalCornerUpRight.Contains(typeASInt))
+        {
+            tile = wallDiagonalCornerUpRight;
+        }
+        else if(WallTypesHelper.wallFullEightDirections.Contains(typeASInt))
+        {
+            tile = wallFull;
+        }
+        else if(WallTypesHelper.wallBottomEightDirections.Contains(typeASInt))
+        {
+            tile = wallBottom;
+        }
+
+        if (tile != null)
+        {
+            PaintSingleTile(wallTilemap, tile, position);
+        }
     }
 }
