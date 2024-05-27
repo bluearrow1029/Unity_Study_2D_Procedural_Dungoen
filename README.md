@@ -18,7 +18,6 @@ PaintSingleTile 메소드에서 tilemap의 SetTile 메소드를 이용함.
 
 특정 tilemap에서 지정한 tile을 월드 기준 좌표인 tilePosition 좌표에 배치함.
 
-
 #
 ### AbstractDungeonGenerator.cs
 ![Abstract](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/908ee389-01e7-47c1-b0e5-c347c681c482)
@@ -31,6 +30,19 @@ PaintSingleTile 메소드에서 tilemap의 SetTile 메소드를 이용함.
 
 GenerateDungeon에서 tilemap을 초기화하고, 각 DungeonGenerator의 절차적 생성을 진행하는 형태를 잡음.
 
+#
+### RandomDungeonGeneratorEditor.cs
+![Editor](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/e8e84c49-d600-479a-a3a5-1535f2556645)
+
+던전 생성과 결과 확인 과정을 간편하게 만들기 위해서 유니티 에디터를 변경함.
+
+Create Dungeon 버튼을 만들어, Edit mode에서도 던전 생성이 가능하게 만듦.
+
+![generator01](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/1820f28f-e777-4a5e-8cc8-a9078aee196c)
+
+![generator02](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/da1c79c6-c9c4-4a4d-9ee0-adfc583dbf86)
+
+![generator03](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/c6cb1eba-6ac4-4870-9f9a-b8d4d2b282a5)
 
 #
 ### ProceduralGenerationAlgorithms.cs
@@ -41,8 +53,6 @@ Direction2D 클래스를 선언하여, 상하좌우와 대각선 방향들을 �
 GetRandomCardinalDirection 메소드는 지정해둔 상하좌우 4방향의 리스트 중 랜덤으로 1개의 Vector2Int 값을 반환함.
 
 이것은 Random Walk 알고리즘에 이용됨.
-
-
 
 ![SimpleRandomWalk_Algorithm](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/b69d90c7-e967-487c-b1d8-0de037175798)
 
@@ -57,8 +67,6 @@ HashSet을 이용하여 중복없이 Vector2Int 형식의 경로 값들 path에 
 매개변수를 통해 얻은 walkLength 횟수만큼 이를 반복함.
 
 반복이 끝난 이후 모든 좌표값들이 들어있는 path를 반환함.
-
-
 
 ![RandomWalkCorridor_Algorithm](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/35769814-8f08-46d6-b889-7260a77199ef)
 
