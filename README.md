@@ -5,6 +5,24 @@
 학습 자료: https://youtube.com/playlist?list=PLcRSafycjWFenI87z7uZHFv6cUG2Tzu9v&si=dnMCw1ZA2V7zUodQ
 
 #
+### 1. Simple Random Walk
+![SimpleRandomWalk](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/96935aeb-bef1-43c7-8ea3-b8eb70f0b303)
+
+Random Walk 알고리즘을 이용하여 생성된 단일 방.
+
+### 2. Corridor First
+![CorridorFirst](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/2674ad1b-6eee-4560-b3e4-7c502dac78f5)
+
+Random Walk 알고리즘을 이용하여 생성된 다수의 방과 통로.
+
+### 3. Rooms First
+![RoomsFirst](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/060dd119-eeeb-452a-b950-ea6ddc3da8c9)
+
+BSP 알고리즘을 이용하여 생성된 다수의 방과 통로.
+
+#
+### 코드 설명
+
 ### WallTypesHelper.cs
 ![WallTypes](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/2683a4f6-f213-4825-bbda-4ddbfc0e17da)
 
@@ -169,20 +187,14 @@ HashSet으로 중복없는 벽 좌표값들(wallPositions)을 구함.
 
 CreateWalls를 수행하여 벽 타일들도 시각화함.
 
-![SimpleRandomWalk](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/96935aeb-bef1-43c7-8ea3-b8eb70f0b303)
 
-Random Walk 알고리즘을 이용하여 생성된 단일 방.
 
 #
 ### CorridorFirstDungeonGenerator.cs
 
-![CorridorFirst](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/2674ad1b-6eee-4560-b3e4-7c502dac78f5)
 
-Random Walk 알고리즘을 이용하여 생성된 다수의 방과 통로.
 
 #
 ### RoomFirstDungeonGenerator.cs
 
-![RoomsFirst](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/060dd119-eeeb-452a-b950-ea6ddc3da8c9)
 
-BSP 알고리즘을 이용하여 생성된 다수의 방과 통로.
