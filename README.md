@@ -31,6 +31,12 @@ PaintSingleTile 메소드에서 tilemap의 SetTile 메소드를 이용함.
 GenerateDungeon에서 tilemap을 초기화하고, 각 DungeonGenerator의 절차적 생성을 진행하는 형태를 잡음.
 
 #
+### SimpleRandomWalkSO.cs
+![ScriptableObject](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/1e58e798-8449-4259-b964-0f8f3e33efb7)
+
+던전 생성에 이용할 iteration값과 walkLength값을 미리 설정할 수 있는 ScriptableObject를 생성.
+
+#
 ### RandomDungeonGeneratorEditor.cs
 ![Editor](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/e8e84c49-d600-479a-a3a5-1535f2556645)
 
@@ -79,21 +85,42 @@ BSP(Binary Space Partitioning, 이진 공간 분할법) 알고리즘
 
 ![Split](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/06f0d34e-b251-4389-9693-635ddf1198aa)
 
+수직 분할
+수평 분할
 
+#
+### WallGenerator.cs
 
+#
+### SimpleRandomWalkDungeonGenerator.cs
+![RunRandomWalk](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/6b6b010b-12e8-484e-b77c-4ae549bb7457)
 
+현재 좌표(currentPosition)에서 ScriptableObject의 walkLength 값으로 SimpleRandomWalk를 수행함.
 
-### 1. Simple Random Walk Result
+얻은 좌표값들(path)을 중복이 없게 바닥타일(floorPositions)에 추가함. 
+
+생성한 바닥타일들의 좌표들 중 하나로 현재 좌표를 변경함.
+
+이것을 ScriptableObject의 iterations 값만큼 반복하고 끝나면 floorPosition을 반환함.
+
+타일맵 초기화 후, 반환된 floorPositions 좌표값들로 바닥 타일들을 시각화함.
+
+CreateWalls를 수행하여 벽 타일들도 시각화함.
+
 ![SimpleRandomWalk](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/96935aeb-bef1-43c7-8ea3-b8eb70f0b303)
 
 Random Walk 알고리즘을 이용하여 생성된 단일 방.
 
-### 2. Corridor First Result
+#
+### CorridorFirstDungeonGenerator.cs
+
 ![CorridorFirst](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/2674ad1b-6eee-4560-b3e4-7c502dac78f5)
 
 Random Walk 알고리즘을 이용하여 생성된 다수의 방과 통로.
 
-### 3. Rooms First Result
+#
+### RoomFirstDungeonGenerator.cs
+
 ![RoomsFirst](https://github.com/bluearrow1029/Unity_Study_2D_Procedural_Dungoen/assets/47950172/060dd119-eeeb-452a-b950-ea6ddc3da8c9)
 
 BSP 알고리즘을 이용하여 생성된 다수의 방과 통로.
