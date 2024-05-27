@@ -9,7 +9,7 @@ public class TilemapVisualizer : MonoBehaviour
     [SerializeField]
     private Tilemap floorTilemap, wallTilemap;
     [SerializeField]
-    private TileBase floorTile, wallTop;
+    private TileBase floorTile, wallTop, wallSideRight, wallSideLeft, wallBottom, wallFull;
 
     public void PaintFloorTiles(IEnumerable<Vector2Int> floorPositions)
     {
@@ -39,5 +39,10 @@ public class TilemapVisualizer : MonoBehaviour
     internal void PaintSingleBasicWall(Vector2Int position)
     {
         PaintSingleTile(wallTilemap, wallTop, position);
+    }
+
+    internal void PaintSingleCornerWall(Vector2Int position, string neighborsBinaryType)
+    {
+        
     }
 }
